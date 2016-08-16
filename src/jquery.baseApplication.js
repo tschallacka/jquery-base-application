@@ -95,7 +95,7 @@
         this.proxiedMethods = null;
     }
 	
-	$.fn[resizeColumnShift] = function(command) {
+	$.fn[applicationname] = function(command) {
 		if(command == undefined || command == null) {
 			this.each(function(index,elem) {
 				var $this = $(elem);
@@ -133,6 +133,6 @@
 		
 	}
 	$(document).ready(function() {
-		$('[data-'+applicationMarker+']').resizeColumnShift();
+		$('[data-'+applicationMarker+']')[applicationname]();
 	});
 }(jQuery);
