@@ -1,6 +1,6 @@
 +function($){
 	/**
-	 * what to mark the application elemetns with in the dom (like <div data-your-application-name>)
+	 * what to mark the application elements with in the dom (like <div data-your-application-name>)
      * The application object will be bound to this marker. To access the application object directly
      * you can do $('.foo').data('your-application-name').something() where something is a prototype function
      * you defined on the application object
@@ -17,14 +17,14 @@
      */
 	var Application = function($elem) {
 		this.$el = $elem;
-	}
+	};
 	/**
 	 * This function get's called if if the application is 'rebound' to the object.
 	 * You can leave this empty, or use it for a 'reset' when calling the function manually
 	 */
 	Application.prototype.reInit = function() {
 		
-	}
+	};
 	/**
 	 * This get's called when your application first fires up.
 	 * Set here the default variables etc... you need.
@@ -33,7 +33,7 @@
 	 */
 	Application.prototype.init = function() {
 		
-	}
+	};
 	/**
 	 * This get's called when your application is deleted.
 	 * unbind variables and event handlers here.
@@ -42,7 +42,7 @@
 	 */
 	Application.prototype.destroy = function() {
 		this.$el = null;
-	}
+	};
 	/**
 	 * ================================================================================
 	 *            Your own prototype methods go below this line
@@ -70,7 +70,7 @@
 	    }
 	
 	    
-	}
+	};
 	
 	
 	Application.prototype.proxy = function(method) {
@@ -85,7 +85,7 @@
 
         this.proxiedMethods[method.__TschProxyId] = method.bind(this);
         return this.proxiedMethods[method.__TschProxyId];
-    }
+    };
 	
 	Application.prototype.dispose = function()  {
         for (var key in this.proxiedMethods) {
@@ -93,13 +93,13 @@
         }
 
         this.proxiedMethods = null;
-    }
+    };
 	
 	$.fn[applicationname] = function(command) {
 		if(command == undefined || command == null) {
 			this.each(function(index,elem) {
 				var $this = $(elem);
-				if($this.is(['[data-'+applicationMarker+']'])) {
+				if($this.is('[data-'+applicationMarker+']')) {
 					var exists = $this.data(applicationMarker);
 					if(exists && exists instanceof Application)  {
 						exists.reInit();
@@ -131,8 +131,11 @@
 			}
 		}
 		
-	}
+	};
 	$(document).ready(function() {
+		$('[data-'+applicationMarker+']')[applicationname]();
+	});
+	$(document).on('render',function() {
 		$('[data-'+applicationMarker+']')[applicationname]();
 	});
 }(jQuery);
